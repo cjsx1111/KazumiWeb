@@ -531,8 +531,8 @@ function onScrollBottom(anchor, fn) {
 }
 
 // 对齐客户端 bangumi_image_url_rewriter.dart 的「镜像」加速：lain.bgm.tv 与
-// api.bgm.tv/v0/*/image 在国内常被 DNS 污染，客户端用 ECH 或 wsrv.nl 绕过；
-// 浏览器做不了 ECH，这里统一走 wsrv.nl。
+// api.bgm.tv/v0/*/image 在国内常被 DNS 污染，客户端用 ECH 或 wsrv.4fun.top 绕过；
+// 浏览器做不了 ECH，这里统一走 wsrv.4fun.top。
 // Web 端本地偏好：图片是否走镜像（localStorage，默认开）
 const APP_SETTINGS = { imageMirror: localStorage.getItem("webImageMirror") !== "0" };
 function setImageMirror(v) {
@@ -550,7 +550,7 @@ function bangumiImageUrl(src) {
   if (u.host !== "lain.bgm.tv" && !isApiImage) return src;
   const q = new URLSearchParams({ url: u.host + u.pathname + u.search });
   if (/\.gif$/i.test(u.pathname)) q.set("n", "-1");
-  return "https://wsrv.nl/?" + q.toString();
+  return "https://wsrv.4fun.top/?" + q.toString();
 }
 function coverImg(src, cls, eager) {
   const img = el("img", { class: cls || "", loading: eager ? "eager" : "lazy", referrerpolicy: "no-referrer", alt: "" });
@@ -2535,7 +2535,7 @@ async function renderTabMy(container) {
       splitRow(netSwitch("enableGitProxy", "extension", "规则仓库镜像", "通过镜像地址拉取规则仓库")),
       splitRow(netSwitch("proxyEnable", "tune", "HTTP 代理", "视频源检索经本机代理访问（直连资源站不稳定时开启）")),
       splitRow(switchTile({
-        icon: "label", title: "图片镜像", desc: "封面与头像经 wsrv.nl 转发，绕过 lain.bgm.tv 的 DNS 污染（仅本浏览器）",
+        icon: "label", title: "图片镜像", desc: "封面与头像经 wsrv.4fun.top 转发，绕过 lain.bgm.tv 的 DNS 污染（仅本浏览器）",
         checked: APP_SETTINGS.imageMirror,
         onChange: (v) => { setImageMirror(v); toast(v ? "新加载的图片将走镜像" : "新加载的图片将直连 bgm.tv"); },
       })),
